@@ -1,0 +1,63 @@
+---
+title: "Predicting the Next Word App"
+author: "Aniruddha Amrite, PhD"
+date: "April 11, 2017"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Predicting the next word --1
+The app predicts the next word in a partial sentence based on previous words. The app uses n-grams and stupid backoff algorithm to predict the next word. The following steps were used to generate the n-grams
+
+* Datasets from three sources twitter, blogs, and news were available from [swiftkey](https://d396qusza40orc.cloudfront.net/dsscapstone/dataset/Coursera-SwiftKey.zip)
+* The blog, news, and twitter datasets were sampled (10%).
+* The datasets were converted into a corpus and cleaned.
+* The sentences were tokenized into unigrams, bigrams, trigrams, quadragrams, and pentagrams and their frequencies estimated
+* Very low frequency n-grams (frequency<2) were removed and the n-grams were written to datasets 
+
+
+## Predicting the next word --2
+* The app uses the unigram, bigram, trigram, quadragram, and pentagram datasets to predict.
+* The datasets are loaded when the app starts
+* The user enters a partial sentence (request is to use at least 2 words)
+* Based on the sentence next words are predicted with a stupid-backoff algorithm which calculates scores based on n-gram frequencies and penalty for backoff.  
+
+## The stupid backoff Algorithm
+
+```{r, echo=FALSE, fig.height=4, fig.width=8, warning=FALSE, message=FALSE}
+library(png)
+library(grid)
+img<-readPNG("Algo.png")
+grid.raster(img)
+```
+
+The details of the scoring for the algorithm can be found at http://www.aclweb.org/anthology/D07-1090.pdf
+
+## App Layout 
+The user inputs a partial sentence and then hits the submit button.The predicted words and their back-off scores are presented in the table whereas the top 5 words are plotted in the main panel along with a wordcloud of upto the top 100 predictions. 
+
+```{r, echo=FALSE, fig.height=3, fig.width=6, warning=FALSE, message=FALSE}
+library(png)
+library(grid)
+img<-readPNG("app.png")
+grid.raster(img)
+```
+
+
+## Further Steps and Resources
+* The app predicts the next words but can have improvements in terms of the processing time
+* The other enhancements would be adding word completion component to the app as the user is typing the word
+<br>
+
+### References
+1. Gendron G.(2015). *MODSIM World (13): 1:10*  
+2. Jurafsky D and Martin J. (2014). *Speech and Language Processing*
+3. Chen S and Goodman J. (1998). *An empirical study of smoothing techniques for language modeling*
+<br>
+
+The app is hosted at [PredictNextWord]( https://aamrite.shinyapps.io/predict_next_word/)<br>
+The github repository with the R-code is located at [Github]()
+
